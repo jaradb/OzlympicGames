@@ -1,5 +1,5 @@
 package games;
 
-public class Cycling implements Game {
+public class Cycling extends Game {
 
 }

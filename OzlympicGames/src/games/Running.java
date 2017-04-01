@@ -1,5 +1,6 @@
 package games;
 
-public class Running implements Game {
+public class Running extends Game {
+
 
 }

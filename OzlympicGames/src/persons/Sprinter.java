@@ -1,6 +1,6 @@
 package persons;
 
-public class SuperAthlete extends Athlete {
+public class Sprinter extends Athlete {
 
 	@Override
 	public void compete() {

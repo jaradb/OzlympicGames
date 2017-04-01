@@ -1,5 +1,6 @@
 package games;
 
-public class Swimming implements Game {
+public class Swimming extends Game {
+
 
 }
