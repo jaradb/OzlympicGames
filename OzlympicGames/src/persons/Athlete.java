@@ -16,6 +16,17 @@ public abstract class Athlete extends Person {
 	
 	private RepresentingState representingState;
 
+	public Athlete(String uniqueID, String name, int age, RepresentingState representingState)
+	{
+		super(uniqueID, name, age);
+		this.representingState = representingState;
+	}
+	
+	public Athlete()
+	{
+		
+	}
+	
 	public RepresentingState getRepresentingState() {
 		return representingState;
 	}
