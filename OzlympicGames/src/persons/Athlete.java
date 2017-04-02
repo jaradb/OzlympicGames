@@ -15,6 +15,8 @@ public abstract class Athlete extends Person {
 	}
 	
 	private RepresentingState representingState;
+	
+	private int pointCount = 0;
 
 	public Athlete(String uniqueID, String name, int age, RepresentingState representingState)
 	{
@@ -27,6 +29,16 @@ public abstract class Athlete extends Person {
 		
 	}
 	
+	public void AddToPointCount(int totalPointsAdded)
+	{
+		pointCount += totalPointsAdded;
+	}
+	
+	public int GetCurrentPointCount()
+	{
+		return pointCount;
+	}
+	
 	public RepresentingState getRepresentingState() {
 		return representingState;
 	}
@@ -35,6 +47,6 @@ public abstract class Athlete extends Person {
 		this.representingState = representingState;
 	}  
 	
-	abstract public void compete();
+	abstract public float compete();
 	
 }

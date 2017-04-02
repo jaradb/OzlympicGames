@@ -1,5 +1,7 @@
 package persons;
 
+import java.util.Random;
+
 public class Cyclist extends Athlete {
 
 	public Cyclist(String uniqueID, String name, int age, RepresentingState representingState)
@@ -12,11 +14,20 @@ public class Cyclist extends Athlete {
 		
 	}
 	@Override
-	public void compete() {
-		// TODO Auto-generated method stub
+	public float compete() {
+		Random randomTimeRange = new Random();
 		
+		return randomTimeRange.nextFloat() * (getMaximumCycleTime() - getMinimumCycleTime()) + getMinimumCycleTime();
 	}
 	
+	static public float getMinimumCycleTime()
+	{
+		return 500.0f;
+	}
 	
+	static public float getMaximumCycleTime()
+	{
+		return 800.0f;
+	}
 
 }

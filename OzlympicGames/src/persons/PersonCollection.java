@@ -2,28 +2,41 @@ package persons;
 
 import java.util.ArrayList;
 
+import ozlympicGames.DataLoaderInterface;
+
 
 public class PersonCollection {
 	
 	private ArrayList<Person> personList;
 	
-	public PersonCollection()
+	public PersonCollection(DataLoaderInterface dataLoader)
 	{
-		personList = new ArrayList<Person>();
-		PopulatePeople();
+		personList = dataLoader.LoadPersonList();
 	}
 
-	public void PopulatePeople()
+	public ArrayList<Person> GetPersonsByType(Class<?> classType)
 	{
-		//Add some officials
-		personList.add(new Official("official01", "Jon Arbuckle", 30));
-		personList.add(new Official("official02", "Toby Fox", 25));
+		ArrayList<Person> subList = new ArrayList<Person>();
 		
-		//Add some cyclists
-		personList.add(new Cyclist("cyclist01", "Bike McBikey", 32, Athlete.RepresentingState.NSW));
-		personList.add(new Cyclist("cyclist02", "Cycle McCycle", 18, Athlete.RepresentingState.VIC));
+		for(Person person : personList)
+		{
+			if(person.getClass().equals(classType)) {
+				subList.add(person);
+			}
+		}
 		
-		//etc
-		
+		return subList;
 	}
+	
+	public Person GetPersonByID(String uniqueID)
+	{
+		for(Person person : personList)
+		{
+			if(person.getUniqueID().equals(uniqueID)) return person;
+		}
+		
+		//Couldn't find anybody by that ID.
+		return null;
+	}
+
 }
