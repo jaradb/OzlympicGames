@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import ozlympicGames.DataLoaderInterface;
 
+//A simple collection class for all the available games at the Ozlympics.
 public class GameCollection {
-	
+
 	private ArrayList<Game> gameList;
-	
-	public GameCollection(DataLoaderInterface dataLoader){
+
+	public GameCollection(DataLoaderInterface dataLoader) {
 		setGameList(dataLoader.LoadGameList());
 	}
 
