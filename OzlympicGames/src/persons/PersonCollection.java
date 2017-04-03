@@ -9,10 +9,10 @@ public class PersonCollection {
 	private ArrayList<Person> personList;
 
 	public PersonCollection(DataLoaderInterface dataLoader) {
-		personList = dataLoader.LoadPersonList();
+		personList = dataLoader.loadPersonList();
 	}
 
-	public ArrayList<Person> GetPersonsByType(Class<?> classType) {
+	public ArrayList<Person> getPersonsByType(Class<?> classType) {
 		ArrayList<Person> subList = new ArrayList<Person>();
 
 		for (Person person : personList) {
@@ -24,7 +24,7 @@ public class PersonCollection {
 		return subList;
 	}
 
-	public Person GetPersonByID(String uniqueID) {
+	public Person getPersonByID(String uniqueID) {
 		for (Person person : personList) {
 			if (person.getUniqueID().equals(uniqueID))
 				return person;

@@ -117,7 +117,7 @@ public abstract class Game {
 
 		// The referee returns the game result and assigns the three first
 		// places with appropriate points
-		gameResult = referee.ConfirmGameResults(getGameName(), roundNumber, firstPlaceWinner, secondPlaceWinner,
+		gameResult = referee.confirmGameResults(getGameName(), roundNumber, firstPlaceWinner, secondPlaceWinner,
 				thirdPlaceWinner);
 	}
 
@@ -139,7 +139,7 @@ public abstract class Game {
 		return bestTimeIndex;
 	}
 
-	public Athlete GetWinner() {
+	public Athlete getWinner() {
 		return firstPlaceWinner;
 	}
 

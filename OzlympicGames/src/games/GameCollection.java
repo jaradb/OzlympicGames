@@ -10,7 +10,7 @@ public class GameCollection {
 	private ArrayList<Game> gameList;
 
 	public GameCollection(DataLoaderInterface dataLoader) {
-		setGameList(dataLoader.LoadGameList());
+		setGameList(dataLoader.loadGameList());
 	}
 
 	public ArrayList<Game> getGameList() {

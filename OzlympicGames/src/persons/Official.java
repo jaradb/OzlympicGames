@@ -14,12 +14,12 @@ public class Official extends Person {
 
 	}
 
-	public String ConfirmGameResults(String gameType, int roundNumber, Athlete firstPlaceWinner,
+	public String confirmGameResults(String gameType, int roundNumber, Athlete firstPlaceWinner,
 			Athlete secondPlaceWinner, Athlete thirdPlaceWinner) {
 		// Allocate the points for winning
-		firstPlaceWinner.AddToPointCount(FIRST_PLACE_POINTS);
-		secondPlaceWinner.AddToPointCount(SECOND_PLACE_POINTS);
-		thirdPlaceWinner.AddToPointCount(THIRD_PLACE_POINTS);
+		firstPlaceWinner.addToPointCount(FIRST_PLACE_POINTS);
+		secondPlaceWinner.addToPointCount(SECOND_PLACE_POINTS);
+		thirdPlaceWinner.addToPointCount(THIRD_PLACE_POINTS);
 
 		// Create a summary of the game and return it.
 		String report = new String();
@@ -30,17 +30,17 @@ public class Official extends Person {
 		report += "First place: " + firstPlaceWinner.getName() + " (ID: " + firstPlaceWinner.getUniqueID() + "), age "
 				+ firstPlaceWinner.getAge() + " representing the state of "
 				+ firstPlaceWinner.getRepresentingState().toString() + " with a current total of "
-				+ firstPlaceWinner.GetCurrentPointCount() + " point(s).\n";
+				+ firstPlaceWinner.getCurrentPointCount() + " point(s).\n";
 
 		report += "Second place: " + secondPlaceWinner.getName() + " (ID: " + secondPlaceWinner.getUniqueID() + "), age "
 				+ secondPlaceWinner.getAge() + " representing the state of "
 				+ secondPlaceWinner.getRepresentingState().toString() + " with a current total of "
-				+ secondPlaceWinner.GetCurrentPointCount() + " point(s).\n";
+				+ secondPlaceWinner.getCurrentPointCount() + " point(s).\n";
 		
 		report += "Third place: " + thirdPlaceWinner.getName() + " (ID: " + thirdPlaceWinner.getUniqueID() + "), age "
 				+ thirdPlaceWinner.getAge() + " representing the state of "
 				+ thirdPlaceWinner.getRepresentingState().toString() + " with a current total of "
-				+ thirdPlaceWinner.GetCurrentPointCount() + " point(s).\n";
+				+ thirdPlaceWinner.getCurrentPointCount() + " point(s).\n";
 		
 
 		return report;

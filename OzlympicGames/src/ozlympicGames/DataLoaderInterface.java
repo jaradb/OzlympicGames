@@ -10,8 +10,8 @@ import persons.Person;
 //See HardcodedDataLoader for an implementation example
 public interface DataLoaderInterface {
 
-	public ArrayList<Person> LoadPersonList();
+	public ArrayList<Person> loadPersonList();
 
-	public ArrayList<Game> LoadGameList();
+	public ArrayList<Game> loadGameList();
 
 }

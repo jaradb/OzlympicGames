@@ -18,11 +18,11 @@ public abstract class Athlete extends Person {
 		
 	}
 
-	public void AddToPointCount(int totalPointsAdded) {
+	public void addToPointCount(int totalPointsAdded) {
 		pointCount += totalPointsAdded;
 	}
 
-	public int GetCurrentPointCount() {
+	public int getCurrentPointCount() {
 		return pointCount;
 	}
 

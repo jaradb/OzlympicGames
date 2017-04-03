@@ -25,10 +25,10 @@ public class Driver {
 		input = new Scanner(System.in);
 		loader = new HardcodedDataLoader();
 		predictionTracker = new PredictionTracker();
-		InitialiseData();
+		initialiseData();
 	}
 
-	public void InitialiseData() {
+	public void initialiseData() {
 		games = new GameCollection(loader);
 		people = new PersonCollection(loader);
 	}
@@ -70,7 +70,7 @@ public class Driver {
 
 	// Displays the main menu into the console, then runs a method depending on
 	// their input.
-	public void DisplayMenu() {
+	public void displayMenu() {
 		while (applicationRunning) {
 			System.out.println("Welcome to the Ozlympic Games");
 			System.out.println("===================================");
@@ -88,23 +88,23 @@ public class Driver {
 
 			switch (getUserInputAsInt()) {
 			case 1:
-				SelectAGame();
+				selectAGame();
 				break;
 
 			case 2:
-				PredictAWinner();
+				predictAWinner();
 				break;
 
 			case 3:
-				StartTheGame();
+				startTheGame();
 				break;
 
 			case 4:
-				DisplayGameResults();
+				displayGameResults();
 				break;
 
 			case 5:
-				DisplayAthletePoints();
+				displayAthletePoints();
 				break;
 
 			case 6:
@@ -119,7 +119,7 @@ public class Driver {
 		}
 	}
 
-	public void SelectAGame() {
+	public void selectAGame() {
 		boolean validGameChosen = false;
 		int gameChosen = -1;
 
@@ -151,13 +151,13 @@ public class Driver {
 		System.out.println("Setting " + gameSelectedToRun.getGameName() + " to be played as the next game.");
 
 		// Assign an official to be a referee.
-		AssignOfficialToRefereeGame();
+		assignOfficialToRefereeGame();
 
 		System.out.println("Would you like to select the participants manually? (y/n): ");
 		if (getUserInputAsBoolean()) {
-			ChooseParticipants();
+			chooseParticipants();
 		} else {
-			AutomaticallyDraftParticipants();
+			automaticallyDraftParticipants();
 		}
 
 		// Clear the currently selected predicted winner (if set), since a new
@@ -167,18 +167,18 @@ public class Driver {
 
 	// The assigned official is randomly picked from the pool of officials in
 	// the personnel list.
-	public void AssignOfficialToRefereeGame() {
-		ArrayList<Person> officials = people.GetPersonsByType(Official.class);
+	public void assignOfficialToRefereeGame() {
+		ArrayList<Person> officials = people.getPersonsByType(Official.class);
 		Random officialSelected = new Random();
 		gameSelectedToRun.setReferee((Official) officials.get(officialSelected.nextInt(officials.size())));
 	}
 
-	public void ChooseParticipants() {
+	public void chooseParticipants() {
 		// Get all the specialist athletes for the game selected.
-		ArrayList<Person> validParticipants = people.GetPersonsByType(gameSelectedToRun.getAltheteClassTypeForGame());
+		ArrayList<Person> validParticipants = people.getPersonsByType(gameSelectedToRun.getAltheteClassTypeForGame());
 
 		// Add the super athletes as they can compete in anything.
-		validParticipants.addAll(people.GetPersonsByType(SuperAthlete.class));
+		validParticipants.addAll(people.getPersonsByType(SuperAthlete.class));
 
 		boolean stillDrafting = true;
 		while (stillDrafting) {
@@ -229,14 +229,14 @@ public class Driver {
 		}
 	}
 
-	public void AutomaticallyDraftParticipants() {
+	public void automaticallyDraftParticipants() {
 		System.out.println("Automatically adding maximum participants available.");
 
 		// Get all the specialist athletes for the game selected.
-		ArrayList<Person> validParticipants = people.GetPersonsByType(gameSelectedToRun.getAltheteClassTypeForGame());
+		ArrayList<Person> validParticipants = people.getPersonsByType(gameSelectedToRun.getAltheteClassTypeForGame());
 
 		// Add the super athletes as they can compete in anything.
-		validParticipants.addAll(people.GetPersonsByType(SuperAthlete.class));
+		validParticipants.addAll(people.getPersonsByType(SuperAthlete.class));
 
 		// Generate a list of indices so we can randomly select one, then remove
 		// it from the list
@@ -275,7 +275,7 @@ public class Driver {
 
 	}
 
-	public void PredictAWinner() {
+	public void predictAWinner() {
 		boolean predictingAWinner = true;
 
 		// We need to know who's participating before we predict a winner,
@@ -309,7 +309,7 @@ public class Driver {
 		}
 	}
 
-	public void StartTheGame() {
+	public void startTheGame() {
 		if (gameSelectedToRun == null) {
 			System.out.println("You have to select a game before running it!");
 			return;
@@ -326,8 +326,8 @@ public class Driver {
 		// If the user predicted a winner lets see if they won.
 		if (predictionTracker.getPredictedWinner() != null) {
 			System.out.println("You predicted " + predictionTracker.getPredictedWinner().getName() + " would win.");
-			System.out.println(gameSelectedToRun.GetWinner().getName() + " won.");
-			if (predictionTracker.getPredictedWinner().equals(gameSelectedToRun.GetWinner())) {
+			System.out.println(gameSelectedToRun.getWinner().getName() + " won.");
+			if (predictionTracker.getPredictedWinner().equals(gameSelectedToRun.getWinner())) {
 				System.out.println("Congratulations on picking the winner!");
 				predictionTracker.recordWinningPrediction(gameSelectedToRun);
 			} else {
@@ -341,26 +341,26 @@ public class Driver {
 	}
 
 	// Display the results of every game run so far.
-	public void DisplayGameResults() {
+	public void displayGameResults() {
 		System.out.println(totalGameResults);
 		System.out.println(predictionTracker.getPredictionReport());
 	}
 
 	// Display the currently accumulated points for every athlete.
-	public void DisplayAthletePoints() {
+	public void displayAthletePoints() {
 		System.out.println("Current point tally for all athletes: ");
 		ArrayList<Person> allAthletes = new ArrayList<Person>();
 
 		// Add all the athlete types.
-		allAthletes.addAll(people.GetPersonsByType(Swimmer.class));
-		allAthletes.addAll(people.GetPersonsByType(Cyclist.class));
-		allAthletes.addAll(people.GetPersonsByType(Sprinter.class));
-		allAthletes.addAll(people.GetPersonsByType(SuperAthlete.class));
+		allAthletes.addAll(people.getPersonsByType(Swimmer.class));
+		allAthletes.addAll(people.getPersonsByType(Cyclist.class));
+		allAthletes.addAll(people.getPersonsByType(Sprinter.class));
+		allAthletes.addAll(people.getPersonsByType(SuperAthlete.class));
 
 		for (Person athlete : allAthletes) {
 			System.out.println(
 					athlete.getName() + " representing " + ((Athlete) athlete).getRepresentingState().toString()
-							+ " with a score of: " + ((Athlete) athlete).GetCurrentPointCount());
+							+ " with a score of: " + ((Athlete) athlete).getCurrentPointCount());
 		}
 	}
 
