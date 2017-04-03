@@ -11,29 +11,27 @@ public abstract class Game {
 	static final public int MAX_PARTICIPANTS = 8;
 	static final public int MIN_PARTICIPANTS = 4;
 
-	protected String uniqueGameID;
-	protected ArrayList<Athlete> competitors;
+	private String uniqueGameID;
+	private ArrayList<Athlete> competitors;
 	private Official referee;
 
-	protected Athlete firstPlaceWinner, secondPlaceWinner, thirdPlaceWinner;
+	private Athlete firstPlaceWinner, secondPlaceWinner, thirdPlaceWinner;
 
 	// A multi-line string reported what happened in this game.
-	protected String gameResult;
+	private String gameResult;
 
 	// Number of times the game was run.
-	protected int roundNumber = 0;
+	private int roundNumber = 0;
 
-	public Game(String uniqueGameID)
-	{
+	public Game(String uniqueGameID) {
 		this.uniqueGameID = uniqueGameID;
 		competitors = new ArrayList<Athlete>();
 	}
 
-	public int getRoundNumber()
-	{
+	public int getRoundNumber() {
 		return roundNumber;
 	}
-	
+
 	public ArrayList<Athlete> getCompetitors() {
 		return competitors;
 	}
