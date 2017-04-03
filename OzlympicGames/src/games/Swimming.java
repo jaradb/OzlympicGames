@@ -1,7 +1,6 @@
 package games;
 
-import persons.Athlete;
-import persons.SuperAthlete;
+import persons.*;
 
 public class Swimming extends Game {
 
@@ -12,9 +11,21 @@ public class Swimming extends Game {
 		{
 			if(competitor.getClass().equals(SuperAthlete.class))
 			{
-				
+				((SuperAthlete)competitor).setCompetingAs(Swimmer.class);
 			}
 		}
+		
+		super.runGame();
+	}
+
+	@Override
+	public String getGameName() {
+		return "Swimming";
+	}
+
+	@Override
+	public Class<?> getAltheteClassTypeForGame() {
+		return Swimmer.class;
 	}
 
 

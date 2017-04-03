@@ -14,7 +14,10 @@ public class HardcodedDataLoader implements DataLoaderInterface {
 
 		ArrayList<Person> personList = new ArrayList<Person>();
 	
-		personList.add(new SuperAthlete("yes", "bepis", 42, RepresentingState.VIC));
+		personList.add(new SuperAthlete("yes1", "bepis1", 42, RepresentingState.VIC));
+		personList.add(new SuperAthlete("yes2", "bepis2", 11, RepresentingState.ACT));
+		personList.add(new SuperAthlete("yes3", "bepis3", 22, RepresentingState.WA));
+		personList.add(new SuperAthlete("yes4", "bepis4", 72, RepresentingState.QLD));
 
 		return personList;
 	}
