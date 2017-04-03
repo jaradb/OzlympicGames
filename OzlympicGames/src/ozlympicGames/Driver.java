@@ -43,8 +43,16 @@ public class Driver {
 	
 	public int getUserInputAsInt()
 	{
+		int inputAsInt = -1;
 		String userInputChoice = input.nextLine();
-		int inputAsInt = Integer.parseInt(userInputChoice);
+		try
+		{
+			inputAsInt = Integer.parseInt(userInputChoice);
+		}
+		catch(NumberFormatException numberException)
+		{
+			inputAsInt = -1;
+		}
 		
 		return inputAsInt;
 	}
@@ -152,6 +160,8 @@ public class Driver {
 		
 		System.out.println("Setting " + gameSelectedToRun.getGameName() + " to be played as the next game.");
 		
+		AssignOfficialToRefereeGame();
+		
 		System.out.println("Would you like to select the participants manually? (y/n): ");
 			
 		if(getUserInputAsBoolean())
@@ -162,6 +172,13 @@ public class Driver {
 		{
 			AutomaticallyDraftParticipants();
 		}
+	}
+	
+	public void AssignOfficialToRefereeGame()
+	{
+		ArrayList<Person> officials = people.GetPersonsByType(Official.class);
+		Random officialSelected = new Random();
+		gameSelectedToRun.setReferee((Official)officials.get(officialSelected.nextInt(officials.size())));
 	}
 	
 	public void ChooseParticipants()
@@ -271,6 +288,12 @@ public class Driver {
 	{
 		boolean predictingAWinner = true;
 		
+		if(gameSelectedToRun == null)
+		{
+			System.out.println("You need to select a game to run before you can predict a winner.");
+			return;
+		}
+		
 		while(predictingAWinner)
 		{
 			System.out.println(gameSelectedToRun.getGameName() + " has the following participants: ");
@@ -314,6 +337,20 @@ public class Driver {
 		
 		totalGameResults += gameSelectedToRun.getGameResult();
 		
+		if(predictedWinner != null)
+		{
+			System.out.println("You predicted " + predictedWinner.getName() + " would win.");
+			System.out.println(gameSelectedToRun.GetWinner().getName() + " won.");
+			if(predictedWinner.equals(gameSelectedToRun.GetWinner()))
+			{
+				System.out.println("Congratulations on picking the winner!");
+			}
+			else
+			{
+				System.out.println("Better luck next time!");
+			}
+		}
+		
 		//Clear out the game that just ran.
 		gameSelectedToRun = null;
 	}
@@ -346,9 +383,5 @@ public class Driver {
 								" with a score of: " + ((Athlete)athlete).GetCurrentPointCount());
 		}
 	}
-	
-	public void ExitApplication()
-	{
-		
-	}
+
 }

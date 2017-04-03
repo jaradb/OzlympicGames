@@ -3,6 +3,7 @@ package games;
 import java.util.ArrayList;
 
 import persons.Athlete;
+import persons.Official;
 
 public abstract class Game {
 	
@@ -11,6 +12,7 @@ public abstract class Game {
 	
 	protected String uniqueGameID;
 	protected ArrayList<Athlete> competitors;
+	private Official referee;
 	
 	protected Athlete firstPlaceWinner, secondPlaceWinner, thirdPlaceWinner;
 	
@@ -99,15 +101,12 @@ public abstract class Game {
 		int thirdPlaceListIndex = getBestTimeIndex(competitors, competitorsTimes);
 		thirdPlaceWinner = getCompetitors().get(thirdPlaceListIndex);
 		
-		//Allocate the points for winning
-		firstPlaceWinner.AddToPointCount(5);
-		secondPlaceWinner.AddToPointCount(2);
-		thirdPlaceWinner.AddToPointCount(1);
 		
 		//Game has finished, clear out the competitors list
 		clearCompetitorList();		
 		
-		gameResult = generateGameResultReport();
+		//gameResult = generateGameResultReport();
+		gameResult = referee.ConfirmGameResults(getGameName(), roundNumber, firstPlaceWinner, secondPlaceWinner, thirdPlaceWinner);
 	}
 	
 	private int getBestTimeIndex(ArrayList<Athlete> competitors, ArrayList<Float> competitorTimes)
@@ -127,30 +126,17 @@ public abstract class Game {
 		return bestTimeIndex;
 	}
 	
-	private String generateGameResultReport()
-	{
-		String report = new String();
-		
-		report += 	"In Swimming, round " + roundNumber + ", the results were -- \n";
-		
-		report += 	"First place: " + firstPlaceWinner.getName() + 
-					" representing the state of " + firstPlaceWinner.getRepresentingState().toString() +
-					" with a current total of " + firstPlaceWinner.GetCurrentPointCount() + " points.\n";
-		
-		report += 	"Second place: " + secondPlaceWinner.getName() + 
-					" representing the state of " + secondPlaceWinner.getRepresentingState().toString() +
-					" with a current total of " + secondPlaceWinner.GetCurrentPointCount() + " points.\n";
-	
-		report += 	"Third place: " + thirdPlaceWinner.getName() + 
-					" representing the state of " + thirdPlaceWinner.getRepresentingState().toString() +
-					" with a current total of " + thirdPlaceWinner.GetCurrentPointCount() + " points.\n";
-	
-		return report;
-	}
-	
 	public Athlete GetWinner()
 	{
 		return firstPlaceWinner;
+	}
+
+	public Official getReferee() {
+		return referee;
+	}
+
+	public void setReferee(Official referee) {
+		this.referee = referee;
 	}
 
 }

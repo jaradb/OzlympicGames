@@ -13,6 +13,8 @@ public class HardcodedDataLoader implements DataLoaderInterface {
 	public ArrayList<Person> LoadPersonList() {
 
 		ArrayList<Person> personList = new ArrayList<Person>();
+		
+		personList.add(new Official("official1", "Bapis", 15));
 	
 		personList.add(new SuperAthlete("yes1", "bepis1", 42, RepresentingState.VIC));
 		personList.add(new SuperAthlete("yes2", "bepis2", 11, RepresentingState.ACT));
