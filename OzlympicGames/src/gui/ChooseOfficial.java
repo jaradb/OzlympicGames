@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JList;
 
 public class ChooseOfficial extends GuiCard {
 
@@ -14,7 +15,15 @@ public class ChooseOfficial extends GuiCard {
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-    	JButton newButton = new JButton("ChooseOfficial");
+		
+		String[] woo = {"official 1", "official fun"};
+		
+		JList<String> gameList = new JList<String>(woo);
+		
+		add(gameList);
+
+    	
+    	JButton newButton = new JButton("Start Game");
     	
     	newButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -23,7 +32,9 @@ public class ChooseOfficial extends GuiCard {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(gameList.getSelectedValue());
 				
+				guiManager.ShowCardByName("Game in Progress");
 			}
     		
     	});

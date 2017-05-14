@@ -10,8 +10,14 @@ public class ChooseGameType  extends GuiCard {
 	{
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		String[] woo = {"what", "yeah"};
+		
+		JList<String> gameList = new JList<String>(woo);
+		
+		add(gameList);
 
-    	JButton newButton = new JButton("ChooseGameType");
+    	JButton newButton = new JButton("Select game");
     	
     	newButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -20,7 +26,9 @@ public class ChooseGameType  extends GuiCard {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(gameList.getSelectedValue());
 				
+				guiManager.ShowCardByName("Choose Athletes");
 			}
     		
     	});

@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
 
 public class ChooseAthletes extends GuiCard {
 
@@ -13,6 +15,14 @@ public class ChooseAthletes extends GuiCard {
 	{
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		String[] woo = {"mr mcgee", "bepis boy", "the best pet", "may it win", "i need more lines"};
+		
+		JList<String> athleteList = new JList<String>(woo);
+		
+		athleteList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		
+		add(athleteList);
 
     	JButton newButton = new JButton("ChooseAthletes");
     	
@@ -23,6 +33,13 @@ public class ChooseAthletes extends GuiCard {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+
+					for(String athleteName : athleteList.getSelectedValuesList())
+					{
+						System.out.println(athleteName);
+					}
+					
+					guiManager.ShowCardByName("Choose Official");
 				
 			}
     		

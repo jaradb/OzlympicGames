@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 
 public class GameResults extends GuiCard {
 
@@ -13,8 +14,14 @@ public class GameResults extends GuiCard {
 	{
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
 
-    	JButton newButton = new JButton("GameResults");
+		JTextArea results = new JTextArea();
+
+		
+		results.setText("its the legend of zelda and its really rad!\nganon bad!\nyeah!");
+
+    	JButton newButton = new JButton("Return to Menu");
     	
     	newButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -23,12 +30,14 @@ public class GameResults extends GuiCard {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				guiManager.ShowCardByName("Main Menu");
 			}
     		
     	});
     	
+    	add(results);
     	add(newButton);
+    	
 	}
 	
 	@Override

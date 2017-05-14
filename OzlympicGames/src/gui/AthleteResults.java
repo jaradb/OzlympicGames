@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 
 public class AthleteResults extends GuiCard {
 
@@ -14,7 +15,12 @@ public class AthleteResults extends GuiCard {
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-    	JButton newButton = new JButton("Athlete Results");
+		JTextArea results = new JTextArea();
+
+		
+		results.setText("all athlete\n results\n yo");
+
+    	JButton newButton = new JButton("Return to Menu");
     	
     	newButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -23,11 +29,12 @@ public class AthleteResults extends GuiCard {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				guiManager.ShowCardByName("Main Menu");
 			}
     		
     	});
     	
+    	add(results);
     	add(newButton);
         
 	}
