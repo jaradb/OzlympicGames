@@ -3,10 +3,16 @@ package gui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
+import persons.Athlete;
+import persons.Official;
+import persons.Swimmer;
 
 public class ChooseOfficial extends GuiCard {
 
@@ -14,13 +20,23 @@ public class ChooseOfficial extends GuiCard {
 	{
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
 
+		ArrayList<Official> allOfficials = new ArrayList<Official>();
 		
-		String[] woo = {"official 1", "official fun"};
+		allOfficials.addAll(guiManager.dataLoader.getPersonCollection().getPersonsByType(Official.class));
 		
-		JList<String> gameList = new JList<String>(woo);
 		
-		add(gameList);
+		String[] officialNames = new String[allOfficials.size()];
+		
+		for(int i = 0; i < allOfficials.size(); i++)
+		{
+			officialNames[i] = "Name: " + allOfficials.get(i).getName() + " -- Official";
+		}
+		
+		JList<String> officialListUI = new JList<String>(officialNames);
+		
+		add(officialListUI);
 
     	
     	JButton newButton = new JButton("Start Game");
@@ -32,7 +48,17 @@ public class ChooseOfficial extends GuiCard {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(gameList.getSelectedValue());
+				System.out.println(officialListUI.getSelectedValue());
+				
+				if(officialListUI.getSelectedValue() != null)
+				{
+					guiManager.officialSelected = allOfficials.get(officialListUI.getSelectedIndex());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "You need to choose an Official before continuing!", "Warning", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 				
 				guiManager.ShowCardByName("Game in Progress");
 			}

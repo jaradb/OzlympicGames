@@ -5,24 +5,47 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Random;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
+import games.Game;
+
+@SuppressWarnings("serial")
 public class GameInProgress extends GuiCard implements ActionListener, PropertyChangeListener {
 	
 	Task task;
-	JProgressBar athleteProgress;
+	//JProgressBar athleteProgress;
+	
+	JProgressBar[] athleteProgress;
+	int athletesFinished = 0;
+	
+	JButton seeResultsButton = null;
 	
 	 class Task extends SwingWorker<Void, Void> {
+		 
+		 JProgressBar bar;
+		 public int progressBarSpeed;
+		 
+		 public Task(JProgressBar progressBar)
+		 {
+			 bar = progressBar;
+		 }
+		 
 	        /*
 	         * Main task. Executed in background thread.
 	         */
 	        @Override
 	        public Void doInBackground() {
 	            int progress = 0;
+	            
+	            Random random = new Random();
+	            
+	            progressBarSpeed = random.nextInt(50) + 25;
+	            
 	            //Initialize progress property.
 	            setProgress(0);
 	            while (progress < 100) {
@@ -31,8 +54,10 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 	                    Thread.sleep(250);
 	                } catch (InterruptedException ignore) {}
 	                //Make random progress.
-	                progress += 10;
+	                progress += progressBarSpeed;
 	                setProgress(Math.min(progress, 100));
+	                
+	                bar.setValue(Math.min(progress, 100));
 	            }
 	            return null;
 	        }
@@ -51,41 +76,19 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 	public GameInProgress(GuiManager guiManager)
 	{
 		super(guiManager);
+				
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     	JButton startGameButton = new JButton("Start Game");
     	
-    	athleteProgress = new JProgressBar();
-    	
-    	athleteProgress.setMinimum(0);
-    	athleteProgress.setMaximum(100);
-    	athleteProgress.setValue(0);
-    	athleteProgress.setStringPainted(true);
-    	
-    	add(athleteProgress);
+
     	
     	startGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     	startGameButton.addActionListener(this);
     	
-    	//task = new Task();
-		//task.addPropertyChangeListener(listener);
-    	
-
-    	
-    	JButton nextButton = new JButton("See Results");
-    	nextButton.addActionListener(new ActionListener()
-    	{
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				guiManager.ShowCardByName("Current Game Results");	
-			}
-    		
-    	});
     	
     	add(startGameButton);
-    	add(nextButton);
 	}
 	
 	@Override
@@ -100,17 +103,93 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 		if ("progress" == evt.getPropertyName()) 
 		{
             int progress = (Integer) evt.getNewValue();
-            athleteProgress.setValue(progress);
+            
+            if(progress == 100)
+            {
+            	athletesFinished++;
+            	
+            	if(athletesFinished == guiManager.athletesSelected.size())
+            	{
+            		seeResultsButton.setEnabled(true);
+            	}
+            }
+            
+            
+            
+            System.out.println(athletesFinished);
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent evt) 
 	{
-		task = new Task();
-		task.addPropertyChangeListener(this);
-		task.execute();
+		Game game = guiManager.gameSelected;
 		
+		game.setCompetitors(guiManager.athletesSelected);
+		game.setReferee(guiManager.officialSelected);
+		
+		game.runGame();
+		
+		guiManager.dataLoader.addGameResult(game);
+		
+		for(int i = 0; i < guiManager.athletesSelected.size(); i++)
+		{
+			Task task = new Task(athleteProgress[i]);
+			task.addPropertyChangeListener(this);
+			task.execute();
+		}		
+	}
+	
+	@Override
+	public void OnShowCard()
+	{
+		athletesFinished = 0;
+		
+		if(athleteProgress != null)
+		{
+			for(int i = 0; i < athleteProgress.length; i++)
+			{
+				remove(athleteProgress[i]);
+			}
+		}
+		
+		athleteProgress = new JProgressBar[guiManager.athletesSelected.size()];
+		
+		for(int i = 0; i < guiManager.athletesSelected.size(); i++)
+		{
+			
+	    	athleteProgress[i] = new JProgressBar();
+	    	
+	    	athleteProgress[i].setMinimum(0);
+	    	athleteProgress[i].setMaximum(100);
+	    	athleteProgress[i].setValue(0);
+	    	athleteProgress[i].setStringPainted(true);
+	    	
+	    	add(athleteProgress[i]);
+		}
+		
+		if(seeResultsButton != null)
+		{
+			remove(seeResultsButton);
+		}
+		
+		seeResultsButton = new JButton("See Results");
+		seeResultsButton.setEnabled(false);
+		
+		seeResultsButton.addActionListener(new ActionListener()
+    	{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				guiManager.ShowCardByName("Current Game Results");	
+			}
+    		
+    	});
+		
+		seeResultsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		add(seeResultsButton);
+
 	}
 
 }

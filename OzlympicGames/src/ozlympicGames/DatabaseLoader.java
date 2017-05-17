@@ -199,7 +199,7 @@ public class DatabaseLoader implements DataLoaderInterface
 			    	String time = dbGameResultSet.getString("Time");
 			    	int score = dbGameResultSet.getInt("Score");
 			    	
-			    	allGameResults += "AthleteID: " + athleteID + " Time: " + time + " Score: " + score;
+			    	allGameResults += "AthleteID: " + athleteID + " Time: " + time + " Score: " + score + "\n";
 			    }
 		    }
 			
@@ -270,9 +270,26 @@ public class DatabaseLoader implements DataLoaderInterface
 	@Override
 	public boolean addGameResult(Game game) {
 		
+		int gameCount = 0;
+		
+		 try {
+
+				dbResultSet = dbStatement.executeQuery("SELECT COUNT(*) AS Total FROM GameResults;");
+				gameCount = dbResultSet.getInt("Total");
+				
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		 
+		 
 		
 		
-		String sql = "INSERT INTO GameResults (GameID, OfficialID, Date) VALUES ('" + game.getUniqueGameID() + 
+		
+		
+		String sql = "INSERT INTO GameResults (GameID, OfficialID, Date) VALUES ('" + game.getUniqueGameID() + gameCount +
 																		"', '" + game.getReferee().getUniqueID() + 
 																		"', '" + game.getGameDate() +"');";
 		
@@ -291,9 +308,9 @@ public class DatabaseLoader implements DataLoaderInterface
 		{
 		
 			
-			sql += "('" + game.getUniqueGameID() + "', '" + 
+			sql += "('" + game.getUniqueGameID() + gameCount + "', '" + 
 							athlete.getUniqueID() + "', '" +
-							athlete.getLastTimeRecorded() +", " +
+							athlete.getLastTimeRecorded() +"', " +
 							athlete.getCurrentPointCount() + "),";
 
 		    
@@ -303,6 +320,14 @@ public class DatabaseLoader implements DataLoaderInterface
 		sql = sql.substring(0, sql.length()-1);
 		
 		sql += ";";
+		
+		 try {
+			dbStatement.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 		
 		return true;
 	}

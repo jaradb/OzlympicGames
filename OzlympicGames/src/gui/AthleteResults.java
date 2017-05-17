@@ -10,12 +10,14 @@ import javax.swing.JTextArea;
 
 public class AthleteResults extends GuiCard {
 
+	JTextArea results;
+	
 	public AthleteResults(GuiManager guiManager)
 	{
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		JTextArea results = new JTextArea();
+		results = new JTextArea();
 
 		
 		results.setText(guiManager.dataLoader.loadAthleteResults());
@@ -38,10 +40,17 @@ public class AthleteResults extends GuiCard {
     	add(newButton);
         
 	}
+	
 	@Override
 	public String getCardName() {
 		// TODO Auto-generated method stub
 		return "Athlete Results";
+	}
+	
+	@Override
+	public void OnShowCard()
+	{
+		results.setText(guiManager.dataLoader.loadAthleteResults());
 	}
 
 }

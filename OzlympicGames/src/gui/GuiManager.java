@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.swing.*;
 
+import games.Game;
 import ozlympicGames.DataLoaderInterface;
 import persons.*;
 
@@ -21,23 +22,14 @@ public class GuiManager {
 	
 	public DataLoaderInterface dataLoader;
 	
+	Game gameSelected = null;
+	ArrayList<Athlete> athletesSelected = null;
+	Official officialSelected = null;
+	
 	public GuiManager(DataLoaderInterface loader)
 	{
-
-		ArrayList<Athlete> allAthletes = new ArrayList<Athlete>();
-		
-		allAthletes.addAll(loader.getPersonCollection().getPersonsByType(Swimmer.class));
-		allAthletes.addAll(loader.getPersonCollection().getPersonsByType(Cyclist.class));
-		allAthletes.addAll(loader.getPersonCollection().getPersonsByType(Sprinter.class));
-		allAthletes.addAll(loader.getPersonCollection().getPersonsByType(SuperAthlete.class));
-		
-		
 		dataLoader = loader;
-		//loader.setAthleteResults(allAthletes);
-		
-		
-		
-		
+
 		createGUICards();
 	}
 	
@@ -48,7 +40,11 @@ public class GuiManager {
 	
 	public void ShowCardByName(String cardName)
 	{
+		guiCardMap.get(cardName).OnShowCard();
+		
 		cardLayout.show(cards, cardName);
+		
+		frame.pack();
 	}
 
 	//ArrayList<GuiCard> guiCards = new ArrayList<GuiCard>();
@@ -87,14 +83,17 @@ public class GuiManager {
 		frame.getContentPane().add(cards);
 
         frame.pack();
+
         frame.setVisible(true);
         
-        cardLayout.show(cards, mainMenu.getCardName());
         
+        cardLayout.show(cards, mainMenu.getCardName());
 
-
-
+	}
 	
+	public JFrame getFrame()
+	{
+		return frame;
 	}
 
 

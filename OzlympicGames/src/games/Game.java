@@ -150,11 +150,13 @@ public abstract class Game {
 		// Game has finished, clear out the competitors list
 		clearCompetitorList();
 
+		 */
+		
 		// The referee returns the game result and assigns the three first
 		// places with appropriate points
 		gameResult = referee.confirmGameResults(getGameName(), roundNumber, firstPlaceWinner, secondPlaceWinner,
-				thirdPlaceWinner);
-				*/
+				thirdPlaceWinner, this);
+				
 	}
 
 	// Figure out the best time in the list given. This method assumes the two

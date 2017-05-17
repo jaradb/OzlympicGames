@@ -10,16 +10,18 @@ import javax.swing.JTextArea;
 
 public class GameResults extends GuiCard {
 
+	JTextArea results;
+	
 	public GameResults(GuiManager guiManager)
 	{
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 
-		JTextArea results = new JTextArea();
-
+		results = new JTextArea();
 		
-		results.setText("its the legend of zelda and its really rad!\nganon bad!\nyeah!");
+		results.setLineWrap(true);
+		results.setWrapStyleWord(true);
 
     	JButton newButton = new JButton("Return to Menu");
     	
@@ -45,5 +47,12 @@ public class GameResults extends GuiCard {
 		// TODO Auto-generated method stub
 		return "Current Game Results";
 	}
+	
+	@Override
+	public void OnShowCard()
+	{
+		results.setText(guiManager.gameSelected.getGameResult());
+	}
+	
 
 }

@@ -9,11 +9,6 @@ public class Ozlympic {
 	public static void main(String[] args) {
 		// Create the driver to display the UI and open the main menu.
 		
-		
-		
-		
-		//DatabaseLoader dbController = new DatabaseLoader();
-
 		  EventQueue.invokeLater(new Runnable() {
 
 	            @Override
@@ -28,14 +23,8 @@ public class Ozlympic {
 	            	{
 	            		gui = new GuiManager(new FileLoader());
 	            	}
-	            	
-	            	
-	            	
-	            	//gui.cardLayout.show(gui.cards, "Current Game Results");
+
 	            }
 	        });
-		
-		//GuiManager gui = new GuiManager();	
-		
 	}
 }
