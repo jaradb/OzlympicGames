@@ -8,6 +8,7 @@ public abstract class Athlete extends Person {
 
 	private RepresentingState representingState;
 	private int pointCount = 0;
+	private float lastTimeRecorded = 0.0f;
 
 	public Athlete(String uniqueID, String name, int age, RepresentingState representingState) {
 		super(uniqueID, name, age);
@@ -25,6 +26,16 @@ public abstract class Athlete extends Person {
 	public int getCurrentPointCount() {
 		return pointCount;
 	}
+	
+	public void setLastTimeRecorded(float lastTimeRecorded)
+	{
+		this.lastTimeRecorded = lastTimeRecorded;
+	}
+	
+	public float getLastTimeRecorded()
+	{
+		return lastTimeRecorded;
+	}
 
 	public RepresentingState getRepresentingState() {
 		return representingState;
@@ -35,4 +46,6 @@ public abstract class Athlete extends Person {
 	}
 
 	abstract public float compete();
+	
+
 }

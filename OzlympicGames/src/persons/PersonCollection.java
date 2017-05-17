@@ -12,12 +12,17 @@ public class PersonCollection {
 		personList = dataLoader.loadPersonList();
 	}
 
-	public ArrayList<Person> getPersonsByType(Class<?> classType) {
-		ArrayList<Person> subList = new ArrayList<Person>();
+	@SuppressWarnings("unchecked")
+	public <T> ArrayList<T> getPersonsByType(Class<?> classType) {
+		
+		ArrayList<T> subList = new ArrayList<T>();
+	
 
 		for (Person person : personList) {
-			if (person.getClass().equals(classType)) {
-				subList.add(person);
+
+			if(person.getClass().equals(classType))
+			{
+				subList.add((T)person);
 			}
 		}
 

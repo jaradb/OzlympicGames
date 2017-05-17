@@ -1,22 +1,43 @@
 package gui;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.*;
 
+import ozlympicGames.DataLoaderInterface;
+import persons.*;
+
+
+
 public class GuiManager {
 
-	
+
 	JFrame frame;	//The main window frame
 	JPanel cards; 	//a panel that uses CardLayout
 	CardLayout cardLayout;
 	
 	HashMap<String, GuiCard> guiCardMap = new HashMap<String, GuiCard>();
 	
-	public GuiManager()
+	public DataLoaderInterface dataLoader;
+	
+	public GuiManager(DataLoaderInterface loader)
 	{
+
+		ArrayList<Athlete> allAthletes = new ArrayList<Athlete>();
+		
+		allAthletes.addAll(loader.getPersonCollection().getPersonsByType(Swimmer.class));
+		allAthletes.addAll(loader.getPersonCollection().getPersonsByType(Cyclist.class));
+		allAthletes.addAll(loader.getPersonCollection().getPersonsByType(Sprinter.class));
+		allAthletes.addAll(loader.getPersonCollection().getPersonsByType(SuperAthlete.class));
+		
+		
+		dataLoader = loader;
+		//loader.setAthleteResults(allAthletes);
+		
+		
+		
+		
 		createGUICards();
 	}
 	

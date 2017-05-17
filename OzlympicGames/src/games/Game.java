@@ -1,6 +1,10 @@
 package games;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 import persons.Athlete;
 import persons.Official;
@@ -10,10 +14,14 @@ public abstract class Game {
 	// The max and min participants, as a constant.
 	static final public int MAX_PARTICIPANTS = 8;
 	static final public int MIN_PARTICIPANTS = 4;
+	
+	
 
 	private String uniqueGameID;
 	private ArrayList<Athlete> competitors;
+	private ArrayList<Athlete> competitorsSortedByTimes;
 	private Official referee;
+	private String gameDate;
 
 	private Athlete firstPlaceWinner, secondPlaceWinner, thirdPlaceWinner;
 
@@ -26,6 +34,7 @@ public abstract class Game {
 	public Game(String uniqueGameID) {
 		this.uniqueGameID = uniqueGameID;
 		competitors = new ArrayList<Athlete>();
+		gameDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 	}
 
 	public int getRoundNumber() {
@@ -54,6 +63,11 @@ public abstract class Game {
 
 	public String getGameResult() {
 		return gameResult;
+	}
+	
+	public String getGameDate()
+	{
+		return gameDate;
 	}
 
 	abstract public String getGameName();
@@ -87,9 +101,32 @@ public abstract class Game {
 		ArrayList<Float> competitorsTimes = new ArrayList<Float>();
 
 		for (Athlete athlete : getCompetitors()) {
-			competitorsTimes.add(athlete.compete());
+			float time = athlete.compete();
+			athlete.setLastTimeRecorded(time);
+			competitorsTimes.add(time);
 		}
+		
+		//getCompetitors().sort(null);
+		
+		getCompetitors().sort(new Comparator<Athlete>() {
 
+			@Override
+			public int compare(Athlete athlete1, Athlete athlete2) {
+
+				if (athlete1.getLastTimeRecorded() > athlete2.getLastTimeRecorded())
+					return 1;
+				if (athlete1.getLastTimeRecorded() < athlete2.getLastTimeRecorded())
+					return -1;
+
+				return 0;
+			}
+		});
+		
+		firstPlaceWinner = getCompetitors().get(0);
+		secondPlaceWinner = getCompetitors().get(1);
+		thirdPlaceWinner = getCompetitors().get(2);
+
+		/*
 		// Figure out who came first.
 		int firstPlaceListIndex = getBestTimeIndex(competitors, competitorsTimes);
 		firstPlaceWinner = getCompetitors().get(firstPlaceListIndex);
@@ -117,6 +154,7 @@ public abstract class Game {
 		// places with appropriate points
 		gameResult = referee.confirmGameResults(getGameName(), roundNumber, firstPlaceWinner, secondPlaceWinner,
 				thirdPlaceWinner);
+				*/
 	}
 
 	// Figure out the best time in the list given. This method assumes the two
@@ -139,6 +177,14 @@ public abstract class Game {
 
 	public Athlete getWinner() {
 		return firstPlaceWinner;
+	}
+	
+	public Athlete getSecondPlace() {
+		return secondPlaceWinner;
+	}
+	
+	public Athlete getThirdPlace() {
+		return thirdPlaceWinner;
 	}
 
 	public Official getReferee() {

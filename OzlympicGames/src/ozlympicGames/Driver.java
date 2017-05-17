@@ -11,7 +11,7 @@ public class Driver {
 
 	private GameCollection games;
 	private PersonCollection people;
-	private HardcodedDataLoader loader;
+	private DatabaseLoader loader;
 	private PredictionTracker predictionTracker;
 
 	private Scanner input;
@@ -23,7 +23,7 @@ public class Driver {
 
 	public Driver() {
 		input = new Scanner(System.in);
-		loader = new HardcodedDataLoader();
+		loader = new DatabaseLoader();
 		predictionTracker = new PredictionTracker();
 		initialiseData();
 	}

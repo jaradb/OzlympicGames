@@ -18,7 +18,7 @@ public class AthleteResults extends GuiCard {
 		JTextArea results = new JTextArea();
 
 		
-		results.setText("all athlete\n results\n yo");
+		results.setText(guiManager.dataLoader.loadAthleteResults());
 
     	JButton newButton = new JButton("Return to Menu");
     	
