@@ -8,53 +8,46 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
+//The GUI Card that shows the result of the game that was just completed. 
+
+@SuppressWarnings("serial")
 public class GameResults extends GuiCard {
 
 	JTextArea results;
-	
-	public GameResults(GuiManager guiManager)
-	{
+
+	public GameResults(GuiManager guiManager) {
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
 
 		results = new JTextArea();
-
-    	JButton newButton = new JButton("Return to Menu");
-    	
-    	newButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-    	newButton.addActionListener(new ActionListener()
-    	{
+		JButton newButton = new JButton("Return to Menu");
+		newButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		newButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				guiManager.ShowCardByName("Main Menu");
+				guiManager.showCardByName("Main Menu");
 			}
-    		
-    	});
-    	
-    	add(results);
-    	add(newButton);
-    	
+		});
+
+		add(results);
+		add(newButton);
 	}
-	
+
 	@Override
 	public String getCardName() {
 		// TODO Auto-generated method stub
 		return "Current Game Results";
 	}
-	
+
 	@Override
-	public void OnShowCard()
-	{
+	public void onShowCard() {
 		results.setVisible(true);
 		results.setText(guiManager.gameSelected.getGameResult());
 	}
-	
+
 	@Override
-	public void OnHideCard()
-	{
+	public void onHideCard() {
 		results.setVisible(false);
 	}
 }

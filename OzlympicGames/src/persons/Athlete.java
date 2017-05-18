@@ -16,7 +16,7 @@ public abstract class Athlete extends Person {
 	}
 
 	public Athlete() {
-		
+
 	}
 
 	public void addToPointCount(int totalPointsAdded) {
@@ -26,14 +26,12 @@ public abstract class Athlete extends Person {
 	public int getCurrentPointCount() {
 		return pointCount;
 	}
-	
-	public void setLastTimeRecorded(float lastTimeRecorded)
-	{
+
+	public void setLastTimeRecorded(float lastTimeRecorded) {
 		this.lastTimeRecorded = lastTimeRecorded;
 	}
-	
-	public float getLastTimeRecorded()
-	{
+
+	public float getLastTimeRecorded() {
 		return lastTimeRecorded;
 	}
 
@@ -44,11 +42,11 @@ public abstract class Athlete extends Person {
 	public void setRepresentingState(RepresentingState representingState) {
 		this.representingState = representingState;
 	}
-	
+
 	abstract public float maxCompeteTime();
+
 	abstract public float minCompeteTime();
 
 	abstract public float compete();
-	
 
 }

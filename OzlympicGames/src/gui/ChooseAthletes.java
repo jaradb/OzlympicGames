@@ -16,6 +16,9 @@ import exceptions.*;
 import games.Game;
 import persons.*;
 
+//The GUI Card that shows the full list of athletes and enables the user to choose who they wish to compete.
+
+@SuppressWarnings("serial")
 public class ChooseAthletes extends GuiCard {
 
 	JList<String> UIathleteList;
@@ -73,16 +76,9 @@ public class ChooseAthletes extends GuiCard {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				for (String athleteName : UIathleteList.getSelectedValuesList()) {
-					System.out.println(athleteName);
-				}
-
 				try {
-
 					if (UIathleteList.getSelectedIndices().length <= Game.MIN_PARTICIPANTS) {
-
 						throw new TooFewAthleteException();
-
 					}
 
 					if (UIathleteList.getSelectedIndices().length > Game.MAX_PARTICIPANTS) {
@@ -103,33 +99,25 @@ public class ChooseAthletes extends GuiCard {
 
 				guiManager.athletesSelected = new ArrayList<Athlete>();
 
-				try
-				{
+				try {
 					for (int i : UIathleteList.getSelectedIndices()) {
 						if (allAthletes.get(i).getClass() != SuperAthlete.class) {
 							if (allAthletes.get(i).getClass() != guiManager.gameSelected.getAltheteClassTypeForGame()) {
-								
-								throw new WrongTypeException("Athlete " + allAthletes.get(i).getName() + " can't compete in "
-												+ guiManager.gameSelected.getGameName() + "!");
+
+								throw new WrongTypeException("Athlete " + allAthletes.get(i).getName()
+										+ " can't compete in " + guiManager.gameSelected.getGameName() + "!");
 							}
 						}
-	
+
 						guiManager.athletesSelected.add(allAthletes.get(i));
-	
+
 					}
-				}
-				catch(WrongTypeException e)
-				{
-					JOptionPane.showMessageDialog(null,
-							e.getErrorMessage(),
-							"Warning", JOptionPane.WARNING_MESSAGE);
+				} catch (WrongTypeException e) {
+					JOptionPane.showMessageDialog(null, e.getErrorMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-
-				guiManager.ShowCardByName("Choose Official");
-
+				guiManager.showCardByName("Choose Official");
 			}
-
 		});
 
 		add(newButton);
@@ -142,14 +130,14 @@ public class ChooseAthletes extends GuiCard {
 	}
 
 	@Override
-	public void OnShowCard() {
+	public void onShowCard() {
 		gameTypeMessage.setText("Game type: " + guiManager.gameSelected.getGameName());
 		UIathleteList.setVisible(true);
 		UIathleteList.clearSelection();
 	}
 
 	@Override
-	public void OnHideCard() {
+	public void onHideCard() {
 		UIathleteList.setVisible(false);
 	}
 }

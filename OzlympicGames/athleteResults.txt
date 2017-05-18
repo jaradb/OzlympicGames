@@ -9,10 +9,10 @@ AthleteID: swimmer8	Athlete Name: Mui Ardath	Score:0
 AthleteID: cyclist1	Athlete Name: Lannie Janie	Score:0
 AthleteID: cyclist2	Athlete Name: Ervin Lynn	Score:0
 AthleteID: cyclist3	Athlete Name: Lorenzo Nubia	Score:0
-AthleteID: cyclist4	Athlete Name: Temple Dannie	Score:5
-AthleteID: cyclist5	Athlete Name: Yvonne Micaela	Score:1
+AthleteID: cyclist4	Athlete Name: Temple Dannie	Score:0
+AthleteID: cyclist5	Athlete Name: Yvonne Micaela	Score:0
 AthleteID: cyclist6	Athlete Name: Kasey Britni	Score:0
-AthleteID: cyclist7	Athlete Name: Brandie Otilia	Score:2
+AthleteID: cyclist7	Athlete Name: Brandie Otilia	Score:0
 AthleteID: cyclist8	Athlete Name: Fawn Charisse	Score:0
 AthleteID: sprinter1	Athlete Name: Samatha Earle	Score:0
 AthleteID: sprinter2	Athlete Name: Dalila Armanda	Score:0

@@ -14,15 +14,13 @@ public class PersonCollection {
 
 	@SuppressWarnings("unchecked")
 	public <T> ArrayList<T> getPersonsByType(Class<?> classType) {
-		
+
 		ArrayList<T> subList = new ArrayList<T>();
-	
 
 		for (Person person : personList) {
 
-			if(person.getClass().equals(classType))
-			{
-				subList.add((T)person);
+			if (person.getClass().equals(classType)) {
+				subList.add((T) person);
 			}
 		}
 
