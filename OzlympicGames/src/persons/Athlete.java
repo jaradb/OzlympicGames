@@ -44,6 +44,9 @@ public abstract class Athlete extends Person {
 	public void setRepresentingState(RepresentingState representingState) {
 		this.representingState = representingState;
 	}
+	
+	abstract public float maxCompeteTime();
+	abstract public float minCompeteTime();
 
 	abstract public float compete();
 	

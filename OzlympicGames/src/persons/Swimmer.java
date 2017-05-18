@@ -21,4 +21,14 @@ public class Swimmer extends Athlete {
 	static public float getMaximumSwimTime() {
 		return 200.0f;
 	}
+
+	@Override
+	public float maxCompeteTime() {
+		return getMaximumSwimTime();
+	}
+
+	@Override
+	public float minCompeteTime() {
+		return getMinimumSwimTime();
+	}
 }

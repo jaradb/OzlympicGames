@@ -13,6 +13,10 @@ public class MainMenu extends GuiCard
 	{
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		JLabel welcomeMessage = new JLabel("Welcome to the Ozlympic Games!");
+		welcomeMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		add(welcomeMessage);
 
     	JButton startAGameButton = new JButton("Start a game");
     	startAGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -17,6 +17,9 @@ public class ChooseGameType  extends GuiCard {
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
+		JLabel gameTypeMessage = new JLabel("Choose a game type:");
+		gameTypeMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		add(gameTypeMessage);
 		
 		ArrayList<Game> gameList = guiManager.dataLoader.loadGameList();
 		
@@ -69,13 +72,14 @@ public class ChooseGameType  extends GuiCard {
 	@Override
 	public void OnShowCard()
 	{
+		gameListUI.setVisible(true);
 		gameListUI.clearSelection();
 	}
 	
 	@Override
 	public void OnHideCard()
 	{
-		
+		gameListUI.setVisible(false);
 	}
 }
 

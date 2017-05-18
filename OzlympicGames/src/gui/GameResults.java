@@ -19,9 +19,6 @@ public class GameResults extends GuiCard {
 		
 
 		results = new JTextArea();
-		
-		results.setLineWrap(true);
-		results.setWrapStyleWord(true);
 
     	JButton newButton = new JButton("Return to Menu");
     	
@@ -51,12 +48,13 @@ public class GameResults extends GuiCard {
 	@Override
 	public void OnShowCard()
 	{
+		results.setVisible(true);
 		results.setText(guiManager.gameSelected.getGameResult());
 	}
 	
 	@Override
 	public void OnHideCard()
 	{
-		
+		results.setVisible(false);
 	}
 }

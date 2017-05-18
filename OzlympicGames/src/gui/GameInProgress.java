@@ -10,6 +10,7 @@ import java.util.Random;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
@@ -26,6 +27,8 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 	Task task;
 	//JProgressBar athleteProgress;
 	
+	
+	JLabel[] athleteLabels;
 	JProgressBar[] athleteProgress;
 	int athletesFinished = 0;
 	
@@ -33,12 +36,18 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 	
 	 class Task extends SwingWorker<Void, Void> {
 		 
-		 JProgressBar bar;
+		 JProgressBar progressBar;
 		 public int progressBarSpeed;
+		 Athlete athlete;
 		 
-		 public Task(JProgressBar progressBar)
+		 
+		 
+		 public Task(JProgressBar progressBar, Athlete athlete)
 		 {
-			 bar = progressBar;
+			 this.progressBar = progressBar;
+			 this.athlete = athlete;
+			 
+		
 		 }
 		 
 	        /*
@@ -47,23 +56,22 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 	        @Override
 	        public Void doInBackground() {
 	            int progress = 0;
-	            
-	            Random random = new Random();
-	            
-	            progressBarSpeed = random.nextInt(50) + 25;
-	            
+	            float athleteSpeed = athlete.getLastTimeRecorded();
+	            float maxCompeteTime = athlete.maxCompeteTime();
+	            float normalizedTime = athleteSpeed / (maxCompeteTime);
+	            long waitTime = (long)(normalizedTime * 500.0f);
+
 	            //Initialize progress property.
 	            setProgress(0);
 	            while (progress < 100) {
 	                //Sleep for up to one second.
 	                try {
-	                    Thread.sleep(250);
+	                    Thread.sleep(waitTime);
 	                } catch (InterruptedException ignore) {}
 	                //Make random progress.
-	                progress += progressBarSpeed;
+	                progress += 5;
 	                setProgress(Math.min(progress, 100));
-	                
-	                bar.setValue(Math.min(progress, 100));
+	                progressBar.setValue(Math.min(progress, 100));
 	            }
 	            return null;
 	        }
@@ -119,10 +127,6 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
             		seeResultsButton.setEnabled(true);
             	}
             }
-            
-            
-            
-            System.out.println(athletesFinished);
 		}
 	}
 
@@ -149,7 +153,7 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 		
 		for(int i = 0; i < guiManager.athletesSelected.size(); i++)
 		{
-			Task task = new Task(athleteProgress[i]);
+			Task task = new Task(athleteProgress[i], guiManager.athletesSelected.get(i));
 			task.addPropertyChangeListener(this);
 			task.execute();
 		}		
@@ -160,25 +164,23 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 	{
 		athletesFinished = 0;
 		
-		if(athleteProgress != null)
-		{
-			for(int i = 0; i < athleteProgress.length; i++)
-			{
-				remove(athleteProgress[i]);
-			}
-		}
 		
 		athleteProgress = new JProgressBar[guiManager.athletesSelected.size()];
+		athleteLabels = new JLabel[guiManager.athletesSelected.size()];
 		
 		for(int i = 0; i < guiManager.athletesSelected.size(); i++)
 		{
+
+			athleteLabels[i] = new JLabel();
+			athleteLabels[i].setText(guiManager.athletesSelected.get(i).getName() + " progress:");
+			add(athleteLabels[i]);
 			
 	    	athleteProgress[i] = new JProgressBar();
 	    	
 	    	athleteProgress[i].setMinimum(0);
 	    	athleteProgress[i].setMaximum(100);
 	    	athleteProgress[i].setValue(0);
-	    	athleteProgress[i].setStringPainted(true);
+	    	athleteProgress[i].setStringPainted(false);
 	    	
 	    	add(athleteProgress[i]);
 		}
@@ -210,7 +212,25 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 	@Override
 	public void OnHideCard()
 	{
+		if(athleteProgress != null)
+		{
+			for(int i = 0; i < athleteProgress.length; i++)
+			{
+				remove(athleteProgress[i]);
+			}
+		}
 		
+		if(athleteLabels != null)
+		{
+			for(int i = 0; i < athleteLabels.length; i++)
+			{
+				remove(athleteLabels[i]);
+			}
+		}
+		
+		athleteLabels = null;
+		athleteProgress = null;
 	}
 
 }
+

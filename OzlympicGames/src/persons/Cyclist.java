@@ -26,4 +26,14 @@ public class Cyclist extends Athlete {
 		return 800.0f;
 	}
 
+	@Override
+	public float maxCompeteTime() {
+		return getMaximumCycleTime();
+	}
+
+	@Override
+	public float minCompeteTime() {
+		return getMinimumCycleTime();
+	}
+
 }

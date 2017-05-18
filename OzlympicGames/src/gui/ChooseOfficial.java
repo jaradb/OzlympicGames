@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import exceptions.NoRefereeException;
 import persons.Athlete;
 import persons.Official;
 import persons.Swimmer;
@@ -23,6 +25,9 @@ public class ChooseOfficial extends GuiCard {
 		super(guiManager);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
+		JLabel selectOfficialMessage = new JLabel("Select an official:");
+		selectOfficialMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		add(selectOfficialMessage);
 
 		ArrayList<Official> allOfficials = new ArrayList<Official>();
 		
@@ -52,13 +57,15 @@ public class ChooseOfficial extends GuiCard {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(officialListUI.getSelectedValue());
 				
-				if(officialListUI.getSelectedValue() != null)
-				{
-					guiManager.officialSelected = allOfficials.get(officialListUI.getSelectedIndex());
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "You need to choose an Official before continuing!", "Warning", JOptionPane.WARNING_MESSAGE);
+				try {
+					if (officialListUI.getSelectedValue() != null) {
+						guiManager.officialSelected = allOfficials.get(officialListUI.getSelectedIndex());
+					} else {
+						throw new NoRefereeException();
+					}
+				} catch (NoRefereeException e) {
+					JOptionPane.showMessageDialog(null, "You need to choose an Official before continuing!", "Warning",
+							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 				
@@ -79,13 +86,13 @@ public class ChooseOfficial extends GuiCard {
 	@Override
 	public void OnShowCard()
 	{
+		officialListUI.setVisible(true);
 		officialListUI.clearSelection();
 	}
 	
 	@Override
 	public void OnHideCard()
 	{
-		
+		officialListUI.setVisible(false);
 	}
-
 }

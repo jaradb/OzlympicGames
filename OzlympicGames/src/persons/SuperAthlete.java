@@ -39,4 +39,38 @@ public class SuperAthlete extends Athlete {
 		this.competingAs = competingAs;
 	}
 
+	@Override
+	public float maxCompeteTime() {
+		float maximumTimeRange = 0;
+
+		if (competingAs.getClass().equals(Cyclist.class)) {
+			maximumTimeRange = Cyclist.getMaximumCycleTime();
+
+		} else if (competingAs.getClass().equals(Swimmer.class)) {
+			maximumTimeRange = Swimmer.getMaximumSwimTime();
+
+		} else if (competingAs.getClass().equals(Sprinter.class)) {
+			maximumTimeRange = Sprinter.getMaximumSprintTime();
+
+		}
+		return maximumTimeRange;
+	}
+
+	@Override
+	public float minCompeteTime() {
+		float minimumTimeRange = 0;
+
+		if (competingAs.getClass().equals(Cyclist.class)) {
+			minimumTimeRange = Cyclist.getMinimumCycleTime();
+
+		} else if (competingAs.getClass().equals(Swimmer.class)) {
+			minimumTimeRange = Swimmer.getMinimumSwimTime();
+
+		} else if (competingAs.getClass().equals(Sprinter.class)) {
+			minimumTimeRange = Sprinter.getMinimumSprintTime();
+
+		}
+		return minimumTimeRange;
+	}
+
 }

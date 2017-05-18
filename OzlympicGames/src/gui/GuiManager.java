@@ -74,6 +74,8 @@ public class GuiManager {
 		guiCardMap.put(allGameResults.getCardName(), allGameResults);
 		guiCardMap.put(athleteResults.getCardName(), athleteResults);
 		
+		for(GuiCard card : guiCardMap.values()) card.OnHideCard();
+		
 		cardLayout = new CardLayout();
 		cards = new JPanel(cardLayout);
 		
@@ -92,6 +94,11 @@ public class GuiManager {
 		
         frame.pack();
 
+        //Position the starting window position to be centered
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        
+        frame.setLocation(((int)width/2) - frame.getWidth()/2, 100);
 
         
         

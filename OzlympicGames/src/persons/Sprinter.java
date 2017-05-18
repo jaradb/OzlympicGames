@@ -21,4 +21,14 @@ public class Sprinter extends Athlete {
 	static public float getMaximumSprintTime() {
 		return 20.0f;
 	}
+
+	@Override
+	public float maxCompeteTime() {
+		return getMaximumSprintTime();
+	}
+
+	@Override
+	public float minCompeteTime() {
+		return getMinimumSprintTime();
+	}
 }
