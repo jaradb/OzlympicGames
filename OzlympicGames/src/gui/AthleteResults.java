@@ -8,6 +8,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
+//The GUI Card that shows the overall scores of the athletes from every game played so far 
+
 @SuppressWarnings("serial")
 public class AthleteResults extends GuiCard {
 
