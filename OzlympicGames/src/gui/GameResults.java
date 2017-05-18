@@ -54,5 +54,9 @@ public class GameResults extends GuiCard {
 		results.setText(guiManager.gameSelected.getGameResult());
 	}
 	
-
+	@Override
+	public void OnHideCard()
+	{
+		
+	}
 }

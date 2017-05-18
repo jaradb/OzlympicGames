@@ -61,5 +61,11 @@ public class AllGameResults extends GuiCard {
 	{
 		results.setText(guiManager.dataLoader.loadGameResults());
 	}
+	
+	@Override
+	public void OnHideCard()
+	{
+		
+	}
 
 }

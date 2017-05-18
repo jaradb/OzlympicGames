@@ -18,5 +18,10 @@ public abstract class GuiCard extends JPanel {
 		
 	}
 	
+	public void OnHideCard()
+	{
+		
+	}
+	
 	public abstract String getCardName();
 }

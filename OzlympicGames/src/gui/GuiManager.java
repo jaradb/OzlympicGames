@@ -19,6 +19,7 @@ public class GuiManager {
 	CardLayout cardLayout;
 	
 	HashMap<String, GuiCard> guiCardMap = new HashMap<String, GuiCard>();
+	GuiCard currentCard = null;
 	
 	public DataLoaderInterface dataLoader;
 	
@@ -40,7 +41,11 @@ public class GuiManager {
 	
 	public void ShowCardByName(String cardName)
 	{
-		guiCardMap.get(cardName).OnShowCard();
+		if(currentCard != null) currentCard.OnHideCard();
+		
+		currentCard = guiCardMap.get(cardName);
+		
+		currentCard.OnShowCard();
 		
 		cardLayout.show(cards, cardName);
 		
@@ -82,9 +87,12 @@ public class GuiManager {
         
 		frame.getContentPane().add(cards);
 
+        frame.setVisible(true);
+		frame.setResizable(false);
+		
         frame.pack();
 
-        frame.setVisible(true);
+
         
         
         cardLayout.show(cards, mainMenu.getCardName());

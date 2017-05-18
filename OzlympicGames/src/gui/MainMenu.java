@@ -77,6 +77,17 @@ public class MainMenu extends GuiCard
 		return "Main Menu";
 	}
 	
+	@Override
+	public void OnShowCard()
+	{
+		
+	}
+	
+	@Override
+	public void OnHideCard()
+	{
+		
+	}
 
 
 }

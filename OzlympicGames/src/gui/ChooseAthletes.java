@@ -16,6 +16,8 @@ import persons.*;
 
 public class ChooseAthletes extends GuiCard {
 
+	JList<String> UIathleteList;
+	
 	public ChooseAthletes(GuiManager guiManager)
 	{
 		super(guiManager);
@@ -41,7 +43,7 @@ public class ChooseAthletes extends GuiCard {
 		
 		//String[] woo = {"mr mcgee", "bepis boy", "the best pet", "may it win", "i need more lines"};
 		
-		JList<String> UIathleteList = new JList<String>(athleteNames);
+		UIathleteList = new JList<String>(athleteNames);
 		
 		UIathleteList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
@@ -113,5 +115,16 @@ public class ChooseAthletes extends GuiCard {
 		// TODO Auto-generated method stub
 		return "Choose Athletes";
 	}
-
+	
+	@Override
+	public void OnShowCard()
+	{
+		UIathleteList.clearSelection();
+	}
+	
+	@Override
+	public void OnHideCard()
+	{
+		
+	}
 }

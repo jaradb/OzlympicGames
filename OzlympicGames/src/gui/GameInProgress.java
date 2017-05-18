@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.BoxLayout;
@@ -13,6 +14,11 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
 import games.Game;
+import persons.Athlete;
+import persons.Cyclist;
+import persons.Sprinter;
+import persons.SuperAthlete;
+import persons.Swimmer;
 
 @SuppressWarnings("serial")
 public class GameInProgress extends GuiCard implements ActionListener, PropertyChangeListener {
@@ -132,6 +138,15 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 		
 		guiManager.dataLoader.addGameResult(game);
 		
+		ArrayList<Athlete> allAthletes = new ArrayList<Athlete>();
+		
+		allAthletes.addAll(guiManager.dataLoader.getPersonCollection().getPersonsByType(Swimmer.class));
+		allAthletes.addAll(guiManager.dataLoader.getPersonCollection().getPersonsByType(Cyclist.class));
+		allAthletes.addAll(guiManager.dataLoader.getPersonCollection().getPersonsByType(Sprinter.class));
+		allAthletes.addAll(guiManager.dataLoader.getPersonCollection().getPersonsByType(SuperAthlete.class));
+		
+		guiManager.dataLoader.setAthleteResults(allAthletes);
+		
 		for(int i = 0; i < guiManager.athletesSelected.size(); i++)
 		{
 			Task task = new Task(athleteProgress[i]);
@@ -190,6 +205,12 @@ public class GameInProgress extends GuiCard implements ActionListener, PropertyC
 		
 		add(seeResultsButton);
 
+	}
+	
+	@Override
+	public void OnHideCard()
+	{
+		
 	}
 
 }

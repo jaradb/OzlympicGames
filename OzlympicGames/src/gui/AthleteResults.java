@@ -21,6 +21,8 @@ public class AthleteResults extends GuiCard {
 
 		
 		results.setText(guiManager.dataLoader.loadAthleteResults());
+		
+		results.setVisible(false);
 
     	JButton newButton = new JButton("Return to Menu");
     	
@@ -50,7 +52,16 @@ public class AthleteResults extends GuiCard {
 	@Override
 	public void OnShowCard()
 	{
+		results.setVisible(true);
 		results.setText(guiManager.dataLoader.loadAthleteResults());
 	}
+	
+	@Override
+	public void OnHideCard()
+	{
+		results.setVisible(false);
+	}
+	
 
+	
 }

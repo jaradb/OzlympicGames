@@ -10,6 +10,8 @@ import games.Game;
 
 public class ChooseGameType  extends GuiCard {
 
+	JList<String> gameListUI;
+	
 	public ChooseGameType(GuiManager guiManager)
 	{
 		super(guiManager);
@@ -25,7 +27,7 @@ public class ChooseGameType  extends GuiCard {
 			gameTitles[i] = gameList.get(i).getGameName();
 		}
 		
-		JList<String> gameListUI = new JList<String>(gameTitles);
+		gameListUI = new JList<String>(gameTitles);
 		
 		add(gameListUI);
 
@@ -63,4 +65,17 @@ public class ChooseGameType  extends GuiCard {
 		// TODO Auto-generated method stub
 		return "Choose Game Type";
 	}
+	
+	@Override
+	public void OnShowCard()
+	{
+		gameListUI.clearSelection();
+	}
+	
+	@Override
+	public void OnHideCard()
+	{
+		
+	}
 }
+

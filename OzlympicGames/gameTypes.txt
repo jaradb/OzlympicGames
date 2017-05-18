@@ -1,0 +1,3 @@
+GameID_Running	Running
+GameID_Cycling	Cycling
+GameID_Swimming	Swimming

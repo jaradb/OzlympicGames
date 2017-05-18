@@ -16,6 +16,8 @@ import persons.Swimmer;
 
 public class ChooseOfficial extends GuiCard {
 
+	JList<String> officialListUI;
+	
 	public ChooseOfficial(GuiManager guiManager)
 	{
 		super(guiManager);
@@ -34,7 +36,7 @@ public class ChooseOfficial extends GuiCard {
 			officialNames[i] = "Name: " + allOfficials.get(i).getName() + " -- Official";
 		}
 		
-		JList<String> officialListUI = new JList<String>(officialNames);
+		officialListUI = new JList<String>(officialNames);
 		
 		add(officialListUI);
 
@@ -72,6 +74,18 @@ public class ChooseOfficial extends GuiCard {
 	public String getCardName() {
 		// TODO Auto-generated method stub
 		return "Choose Official";
+	}
+	
+	@Override
+	public void OnShowCard()
+	{
+		officialListUI.clearSelection();
+	}
+	
+	@Override
+	public void OnHideCard()
+	{
+		
 	}
 
 }
